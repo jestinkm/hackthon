@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #7b2cbf, #c77dff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 450px;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #4a148c;
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: #6a11cb;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background-color: #4a148c;
+        }
+        
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH93OAEuyOf-GJkAZe-6QZfajymlCz2EM",
+            authDomain: "hackthon-37459.firebaseapp.com",
+            databaseURL: "https://hackthon-37459-default-rtdb.firebaseio.com",
+            projectId: "hackthon-37459",
+            storageBucket: "hackthon-37459.firebasestorage.app",
+            messagingSenderId: "327182533815",
+            appId: "1:327182533815:web:11dae37967d609d3e4f932",
+            measurementId: "G-0B2XDWFGDS"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Child Registration</h2>
+        <form id="registrationForm">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+            <div class="error" id="firstNameError"></div>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+            <div class="error" id="lastNameError"></div>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+            <div class="error" id="dobError"></div>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <div class="error" id="genderError"></div>
+
+            <label for="fatherName">Father's Name:</label>
+            <input type="text" id="fatherName" name="fatherName" required>
+            <div class="error" id="fatherNameError"></div>
+
+            <label for="motherName">Mother's Name:</label>
+            <input type="text" id="motherName" name="motherName" required>
+            <div class="error" id="motherNameError"></div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    <script>
+        const form = document.getElementById('registrationForm');
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+            document.querySelectorAll('.error').forEach(e => e.textContent = '');
+            if (form.firstName.value.trim() === "") {
+                document.getElementById('firstNameError').textContent = "First name is required.";
+                isValid = false;
+            }
+            if (form.lastName.value.trim() === "") {
+                document.getElementById('lastNameError').textContent = "Last name is required.";
+                isValid = false;
+            }
+            if (form.dob.value === "") {
+                document.getElementById('dobError').textContent = "Date of birth is required.";
+                isValid = false;
+            }
+            if (form.gender.value === "") {
+                document.getElementById('genderError').textContent = "Gender is required.";
+                isValid = false;
+            }
+            if (form.fatherName.value.trim() === "") {
+                document.getElementById('fatherNameError').textContent = "Father's name is required.";
+                isValid = false;
+            }
+            if (form.motherName.value.trim() === "") {
+                document.getElementById('motherNameError').textContent = "Mother's name is required.";
+                isValid = false;
+            }
+            if (isValid) {
+                event.preventDefault();
+                db.collection("children").add({
+                    firstName: form.firstName.value,
+                    lastName: form.lastName.value,
+                    dob: form.dob.value,
+                    gender: form.gender.value,
+                    fatherName: form.fatherName.value,
+                    motherName: form.motherName.value,
+                }).then(() => {
+                    alert("Child registered successfully!");
+                    form.reset();
+                }).catch(error => {
+                    console.error("Error: ", error);
+                    alert("Error registering child.");
+                });
+            }
+        });
+    </script>
+</body>
+</html>

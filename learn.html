@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn - SheDeserves</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Set Background Color to Violet */
+        body {
+            background-color: #8e24aa;
+            color: white;
+        }
+
+        /* Navbar */
+        header nav {
+            background-color: #8e24aa;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: #ff4081;
+            transform: scale(1.1);
+        }
+
+        /* Learn Page Styles */
+        .learn {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .learn h2 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: #9c27b0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .card h3 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #ff4081;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .card a:hover {
+            background-color: #d81b60;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #8e24aa;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 1.2rem;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .learn h2 {
+                font-size: 2.5rem;
+            }
+
+            .card h3 {
+                font-size: 1.8rem;
+            }
+
+            .card p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <h1>SheDeserves</h1>
+            <ul>
+                <li><a href="index.html" >Home</a></li>
+                <li><a href="about.html" >About Us</a></li>
+                <li><a href="#" class="active">Learn</a></li>
+                <li><a href="scheme.html">scheme</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="adminacc.html">admin request</a></li>
+                    <a href="admlog.html" class="profile-bar">
+                        <img src="https://via.placeholder.com/30" alt="Profile">
+                        <span>Admin</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Learn Content -->
+    <section class="learn">
+        <h2>Educational Materials</h2>
+        <div class="card-container">
+            <div class="card">
+                <h3>Understanding Gender Equality</h3>
+                <p>Learn about gender rights and how to promote equality in society.</p>
+                <a href="https://www.unwomen.org/en" target="_blank">Read More</a>
+            </div>
+            <div class="card">
+                <h3>Impact of Female Feticide</h3>
+                <p>Discover how gender-based discrimination affects communities worldwide.</p>
+                <a href="https://www.hrw.org/world-report/2019/country-chapters/global-0" target="_blank">Read More</a>
+            </div>
+            <div class="card">
+                <h3>Empowering the Girl Child</h3>
+                <p>Education is the key to change. Learn how to uplift young girls.</p>
+                <a href="https://www.concern.net/news/girls-education-facts-and-importance" target="_blank">Read More</a>
+            </div>
+            <div class="card">
+                <h3>Women in Leadership</h3>
+                <p>How women are breaking barriers and leading in various sectors.</p>
+                <a href="https://www.unwomen.org/en/what-we-do/leadership-and-political-participation" target="_blank">Read More</a>
+            </div>
+            <div class="card">
+                <h3>Gender-Based Violence</h3>
+                <p>Understanding the impact of violence and how to take action.</p>
+                <a href="https://www.who.int/news-room/fact-sheets/detail/violence-against-women" target="_blank">Read More</a>
+            </div>
+            <div class="card">
+                <h3>Women’s Rights Movements</h3>
+                <p>Explore historical and modern movements advocating for women’s rights.</p>
+                <a href="https://www.amnesty.org/en/what-we-do/discrimination/womens-rights/" target="_blank">Read More</a>
+            </div>
+            <div class="card">
+                <h3>Workplace Equality</h3>
+                <p>Learn about fair wages, opportunities, and gender-friendly workplaces.</p>
+                <a href="https://www.ilo.org/global/topics/equality-and-discrimination/lang--en/index.htm" target="_blank">Read More</a>
+            </div>
+            <div class="card">
+                <h3>Women’s Health & Safety</h3>
+                <p>Learn about health issues and safety concerns affecting women globally.</p>
+                <a href="https://www.who.int/health-topics/women-health" target="_blank">Read More</a>
+            </div>
+            <div class="card">
+                <h3>Education for All</h3>
+                <p>How global efforts are increasing access to education for girls.</p>
+                <a href="https://www.unesco.org/en/education/girls-women" target="_blank">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 SheDeserves. All rights reserved.</p>
+    </footer>
+</body>
+</html>

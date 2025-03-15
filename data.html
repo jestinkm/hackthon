@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Distribution Chart</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #8e24aa;
+            /* Light background color */
+        }
+        
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow */
+            text-align: center;
+        }
+        
+        #genderChart {
+            width: 400px;
+            height: 300px;
+            margin-top: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            /* Darker heading color */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Gender Distribution</h1>
+        <canvas id="genderChart"></canvas>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Your Firebase configuration (REPLACE WITH YOUR ACTUAL CONFIG)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBH93OAEuyOf-GJkAZe-6QZfajymlCz2EM",
+            authDomain: "hackthon-37459.firebaseapp.com",
+            databaseURL: "https://hackthon-37459-default-rtdb.firebaseio.com",
+            projectId: "hackthon-37459",
+            storageBucket: "hackthon-37459.firebasestorage.app",
+            messagingSenderId: "327182533815",
+            appId: "1:327182533815:web:11dae37967d609d3e4f932",
+            measurementId: "G-0B2XDWFGDS"
+        };
+
+        // Initialize Firebase
+        const app = firebaseConfig ? firebase.initializeApp(firebaseConfig) : null;
+        const db = app ? firebase.firestore(app) : null;
+
+
+        async function fetchDataAndCreateChart() {
+            if (!db) {
+                console.error("Firebase is not initialized. Check your config.");
+                return;
+            }
+
+            try {
+                const genderCollection = db.collection('children'); // Replace 'children' with your collection name
+                const genderSnapshot = await genderCollection.get();
+
+                let maleCount = 0;
+                let femaleCount = 0;
+
+                genderSnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const gender = data.gender;
+
+                    if (gender === 'male' || gender === 'Male' || gender === 'M') {
+                        maleCount++;
+                    } else if (gender === 'female' || gender === 'Female' || gender === 'F') {
+                        femaleCount++;
+                    }
+                });
+
+                const ctx = document.getElementById('genderChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Male', 'Female'],
+                        datasets: [{
+                            label: 'Gender Distribution',
+                            data: [maleCount, femaleCount],
+                            backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)'],
+                            borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        fetchDataAndCreateChart();
+    </script>
+</body>
+
+</html>

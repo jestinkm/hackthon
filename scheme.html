@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engage - SheDeserves</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Color Palette */
+        :root {
+            --primary-color: #8e24aa;
+            --secondary-color: #6a1b9a;
+            --accent-color: #ff4081;
+            --light-color: #f3e5f5;
+            --dark-color: #333;
+            --white-color: #fff;
+            --background-color: #8e24aa;
+            --gradient-color: linear-gradient(135deg, #6a1b9a, #8e24aa);
+        }
+
+        body {
+            background: var(--background-color);
+            color: var(--white-color);
+        }
+
+        /* Navbar */
+        header nav {
+            background-color: var(--primary-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h1 {
+            color: var(--white-color);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: var(--white-color);
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        /* Section Styles */
+        .scheme {
+            padding: 60px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .scheme h2 {
+            font-size: 3rem;
+            color: var(--white-color);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .scheme h2::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .scheme p {
+            font-size: 1.2rem;
+            color: var(--white-color);
+            margin-bottom: 40px;
+        }
+
+        /* Cards Layout */
+        .forum-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(320px, 1fr)); /* Ensures 2 cards per row */
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+        .post-card {
+            background: var(--white-color);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: left;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+
+        .post-card h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .post-card p {
+            font-size: 1rem;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+    .forum-container {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+}
+@media (max-width: 768px) {
+            .forum-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 1.2rem;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <h1>SheDeserves</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="scheme.html" class="active">Schemes</a></li>
+                <li><a href="adminacc.html">admin request</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                    <a href="admlog.html" class="profile-bar">
+                        <img src="https://via.placeholder.com/30" alt="Profile">
+                        <span>Admin</span>
+                    </a>
+                </li>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Scheme Section -->
+    <section class="scheme">
+        <h2>Government Schemes</h2>
+        <p>Explore government schemes that support women and sports initiatives.</p>
+
+        <div class="forum-container">
+            <div class="post-card" onclick="window.open('https://www.pudhumaipenn.tn.gov.in/')">
+                <h3>Moovalur Ramamirtham Ammaiyar Scheme</h3>
+                <p>Financial aid for girls to pursue higher education.</p>
+            </div>
+
+            <div class="post-card" onclick="window.open('https://www.kheloindia.gov.in/')">
+                <h3>Khelo India Scheme</h3>
+                <p>Identifies and trains young sports talents.</p>
+            </div>
+
+            <div class="post-card" onclick="window.open('https://nari.nic.in/')">
+                <h3>Beti Bachao Beti Padhao</h3>
+                <p>Promotes education and safety for girl children.</p>
+            </div>
+
+            <div class="post-card" onclick="window.open('https://pmuy.gov.in/')">
+                <h3>PM Ujjwala Yojana</h3>
+                <p>Provides free LPG connections to women from BPL households.</p>
+            </div>
+
+            <div class="post-card" onclick="window.open('https://www.nari.nic.in/')">
+                <h3>Mahila Shakti Kendra</h3>
+                <p>Empowers rural women through skill development.</p>
+            </div>
+
+            <div class="post-card" onclick="window.open('https://pmaymis.gov.in/')">
+                <h3>PM Awas Yojana</h3>
+                <p>Encourages women's home ownership.</p>
+            </div>
+
+            <div class="post-card" onclick="window.open('https://mhrd.gov.in/')">
+                <h3>National Scholarship Portal</h3>
+                <p>Scholarships for girls in higher education.</p>
+            </div>
+
+            <div class="post-card" onclick="window.open('https://www.kheloindia.gov.in/')">
+                <h3>Fit India Movement</h3>
+                <p>Promotes health awareness in schools and workplaces.</p>
+            </div>
+
+            <div class="post-card" onclick="window.open('https://nsrs.kheloindia.gov.in/')">
+                <h3>National Sports Repository System</h3>
+                <p>Supports sports infrastructure development.</p>
+            </div>
+
+            <div class="post-card" onclick="window.open('https://wcd.nic.in/')">
+                <h3>One Stop Centre Scheme</h3>
+                <p>Provides support for women facing violence.</p>
+            </div>
+            <div class="post-card" onclick="window.open('https://www.startupindia.gov.in/')">
+                <h3>Women Startup Initiative</h3>
+                <p>Encourages women entrepreneurs by providing funding and mentorship.</p>
+            </div>
+            
+            <div class="post-card" onclick="window.open('https://www.nari.nic.in/')">
+                <h3>Working Women Hostel Scheme</h3>
+                <p>Provides safe and affordable accommodation for working women.</p>
+            </div>
+            
+            <div class="post-card" onclick="window.open('https://www.tnsocialwelfare.tn.gov.in/en/specilisationswomen-welfare/free-travel-for-women-in-government-buses')">
+                <h3>Free bus scheme </h3>
+                <p>Provides safe and more travels to women.</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 SheDeserves. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

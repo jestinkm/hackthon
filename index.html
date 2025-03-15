@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheDeserves - Empowering the Girl Child</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+         :root {
+            --primary-color: #8e24aa;
+            --secondary-color: #6a1b9a;
+            --accent-color: #ff4081;
+            --light-color: #f3e5f5;
+            --dark-color: #333;
+            --white-color: #fff;
+            --background-color: #f9f9f9;
+            --gradient-color: linear-gradient(135deg, #8e24aa, #6a1b9a);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--dark-color);
+        }
+        
+        .profile-bar {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--gradient-color);
+            padding: 5px 15px;
+            border-radius: 8px;
+            color: var(--white-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+        }
+        
+        .profile-bar:hover {
+            background-color: #ff79b0;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-bar img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--white-color);
+        }
+        /* Navbar */
+        
+        header nav {
+            background-color: var(--primary-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav h1 {
+            color: var(--white-color);
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--white-color);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.3s, transform 0.3s;
+            font-size: 1rem;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: var(--accent-color);
+        }
+        
+        .hero {
+            height: 100vh;
+            background: var(--gradient-color);
+            color: var(--white-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hero h2 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .cta-btn {
+            background-color: var(--accent-color);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--white-color);
+            transition: 0.3s;
+        }
+        
+        .cta-btn:hover {
+            background-color: #ff79b0;
+            transform: translateY(-5px);
+        }
+        /* Highlights Section */
+        
+        .highlights {
+            padding: 80px 20px;
+            background-color: var(--background-color);
+            text-align: center;
+        }
+        
+        .highlights h3 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+        }
+        
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .card {
+            background: var(--glass-bg);
+            padding: 30px;
+            border-radius: 15px;
+            width: 250px;
+            backdrop-filter: blur(var(--blur));
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .card p {
+            color: var(--dark-color);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 35px rgba(0, 0, 0, 0.2);
+            background: var(--gradient-color);
+            color: var(--white-color);
+        }
+        /* Footer */
+        
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 1.2rem;
+        }
+        /* Chart Container */
+        
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+            gap: 40px;
+            background-color: #8e24aa;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        canvas {
+            max-width: 400px;
+            max-height: 300px;
+        }
+        
+        h1 {
+            color: #6a1b9a;
+        }
+        /* Bar Chart - Maintain the original size */
+        
+        #genderBarChart {
+            max-width: 400px;
+            max-height: 300px;
+        }
+        /* Pie Chart - Reduced size */
+        
+        #genderPieChart {
+            max-width: 250px;
+            max-height: 200px;
+        }
+        .admin-request-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.admin-request-btn {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.admin-request-btn:hover {
+    background-color: #ff79b0;
+    transform: translateY(-3px);
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- Existing SheDeserves Content -->
+    <header>
+        <nav>
+            <h1>SheDeserves</h1>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="scheme.html">scheme</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="adminacc.html">admin request</a></li>
+                    <a href="admlog.html" class="profile-bar">
+                        <img src="https://via.placeholder.com/30" alt="Profile">
+                        <span>Admin</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Empower. Educate. Elevate the Girl Child.</h2>
+            <p>Join us in promoting gender equality and ending gender-based discrimination.</p>
+            <a href="#" class="cta-btn">Get Involved</a>
+        </div>
+    </section>
+    <!-- Highlights Section with Cards -->
+    <section class="highlights">
+        <h3>Why SheDeserves?</h3>
+        <div class="card-container">
+            <div class="card">
+                <h4>Empowerment</h4>
+                <p>We strive to empower girls through education and advocacy.</p>
+            </div>
+            <div class="card">
+                <h4>Education</h4>
+                <p>Providing resources to learn about gender equality.</p>
+            </div>
+            <div class="card">
+                <h4>Engagement</h4>
+                <p>Join our community forum and share your voice.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Gender Distribution Charts -->
+    <section class="chart-container">
+        <div class="container">
+            <h1>Bar Chart - Gender Distribution</h1>
+            <canvas id="genderBarChart"></canvas>
+        </div>
+        <div class="container">
+            <h1>Pie Chart - Gender Distribution</h1>
+            <canvas id="genderPieChart"></canvas>
+        </div>
+
+    </section>
+    <div class="admin-request-container">
+        <button class="admin-request-btn" onclick="adminRequest()">Admin Request</button>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 SheDeserves. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "API_KEY",
+            authDomain: "hackthon-37459.firebaseapp.com",
+            databaseURL: "https://hackthon-37459-default-rtdb.firebaseio.com",
+            projectId: "hackthon-37459",
+            storageBucket: "hackthon-37459.firebasestorage.app",
+            messagingSenderId: "327182533815",
+            appId: "1:327182533815:web:11dae37967d609d3e4f932",
+            measurementId: "G-0B2XDWFGDS"
+        };
+
+        // Initialize Firebase
+        const app = firebaseConfig ? firebase.initializeApp(firebaseConfig) : null;
+        const db = app ? firebase.firestore(app) : null;
+
+        async function fetchDataAndCreateCharts() {
+            if (!db) {
+                console.error("Firebase is not initialized. Check your config.");
+                return;
+            }
+
+            try {
+                const genderCollection = db.collection('children');
+                const genderSnapshot = await genderCollection.get();
+
+                let maleCount = 0;
+                let femaleCount = 0;
+
+                genderSnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const gender = data.gender;
+
+                    if (gender === 'male' || gender === 'Male' || gender === 'M') {
+                        maleCount++;
+                    } else if (gender === 'female' || gender === 'Female' || gender === 'F') {
+                        femaleCount++;
+                    }
+                });
+
+                const labels = ['Male', 'Female'];
+                const data = [maleCount, femaleCount];
+                const backgroundColors = ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)'];
+                const borderColors = ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'];
+
+                // Bar Chart
+                const barCtx = document.getElementById('genderBarChart').getContext('2d');
+                new Chart(barCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Gender Distribution',
+                            data: data,
+                            backgroundColor: backgroundColors,
+                            borderColor: borderColors,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                // Pie Chart
+                const pieCtx = document.getElementById('genderPieChart').getContext('2d');
+                new Chart(pieCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: backgroundColors,
+                            borderColor: borderColors,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        fetchDataAndCreateCharts();
+        function adminRequest() {
+            window.location.href = "adminacc.html";
+        // You can modify this to send a request to Firestore or open a request form.
+    }
+    </script>
+
+</body>
+
+</html>
