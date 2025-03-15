@@ -138,6 +138,64 @@
                 font-size: 1.2rem;
             }
         }
+        /* Media Queries for Mobile */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul li a {
+        display: block;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .about {
+        padding: 30px 15px;
+    }
+
+    .about h2 {
+        font-size: 2rem;
+    }
+
+    .about h3 {
+        font-size: 1.8rem;
+    }
+
+    .about p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .profile-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-bar img {
+        width: 25px;
+        height: 25px;
+    }
+
+    footer {
+        font-size: 1rem;
+        padding: 15px;
+    }
+}
+
     </style>
 </head>
 <body>
